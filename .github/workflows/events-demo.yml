@@ -4,7 +4,13 @@ on:
         types: 
             - opened
             - edited
+        branches: 
+            - main
     workflow_dispatch: 
+    push:
+        branches: # we can trigger this workflow when a particular branched pushed
+            - main
+            - 'dev**'
 jobs:
     job1:
         runs-on: ubuntu-latest
