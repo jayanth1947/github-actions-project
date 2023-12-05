@@ -7,7 +7,7 @@ jobs:
             - name: Check code
               uses: actions/checkout@v3
             - name : install dependencies
-              run : echo npm install
+              run : npm install
             - name: run lint
               run : npm run lint
     job2:
@@ -16,7 +16,7 @@ jobs:
             - name: Check code
               uses: actions/checkout@v3
             - name : install dependencies
-              run : echo npm install
+              run : npm install
             - name: run lint
               run : npm run lint
             - name: run test
@@ -28,7 +28,7 @@ jobs:
         - name: Check code
           uses: actions/checkout@v3
         - name: install dependencies
-          run : echo npm install
+          run : npm install
         - name: run build
           run : npm run build
         - name: deploy code
