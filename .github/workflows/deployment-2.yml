@@ -1,0 +1,35 @@
+name: deployment 2
+on: push
+jobs:
+    job1:
+        runs-on : ubuntu-latest
+        steps:
+            - name: Check code
+              uses: actions/chechout@v3
+            - name : install dependencies
+              run : echo npm install
+            - name: run lint
+              run : npm run lint
+    job2:
+        runs-on : ubuntu-latest
+        steps:
+            - name: Check code
+              uses: actions/chechout@v3
+            - name : install dependencies
+              run : echo npm install
+            - name: run lint
+              run : npm run lint
+            - name: run test
+              run : npm run test
+            
+    job3:
+        runs-on : ubuntu-latest
+        steps:
+        - name: Check code
+          uses: actions/chechout@v3
+        - name: install dependencies
+          run : echo npm install
+        - name: run build
+          run : npm run build
+        - name: deploy code
+          run : echo "deploying...."
