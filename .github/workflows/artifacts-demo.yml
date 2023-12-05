@@ -23,5 +23,15 @@ jobs:
                 name: dist-files #name of file for storing
                 path: dist       #Storing the files in these path
 
+    job2:
+        needs: job1
+        runs-on: ubuntu-latest
+        steps:
+            - name: get build artifacts
+              uses: actions/download-artifact@v3  #for downloding the artifacts
+              with:
+                name: dist-files
+            - name: Get Contents
+              run : ls
             - name: deploy code
               run : echo "deploying...."
