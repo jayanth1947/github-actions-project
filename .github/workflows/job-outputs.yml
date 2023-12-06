@@ -1,0 +1,44 @@
+name: Job Outputs Demo
+on: 
+    push:
+        branches: 
+            - main
+jobs:
+    job1:
+        runs-on: ubuntu-latest
+        outputs:
+          script-file : ${{steps.publish.outputs.script-file}}
+        steps:
+            - name: Check code
+              uses: actions/checkout@v3
+            - name: install dependencies
+              run : npm install
+            - name: run lint
+              run : npm run lint
+            - name: run test
+              run : npm run test
+            - name: run build
+              run : npm run build
+            - name: publish Js filename
+              id : publish # id is must for the output  step for identity
+              run : find src/test/*.js -type f -execdir echo 'script-file={}' >> $GITHUB_OUTPUT ';'
+            - name: upload Artifacts # name of the artifacts
+              uses: actions/upload-artifact@v3  #this action is for uploading the artifacts
+              with:
+                name: dist-files #name of file for storing
+                path: dist       #Storing the files in these path
+
+    job2:
+        needs: job1
+        runs-on: ubuntu-latest
+        steps:
+            - name: get build artifacts
+              uses: actions/download-artifact@v3  #for downloding the artifacts
+              with:
+                name: dist-files
+            - name: Get Contents
+              run : ls
+            - name: output file Name
+              run : echo "${{needs.job1.outputs.script-file}}"
+            - name: deploy code
+              run : echo "deploying...."
